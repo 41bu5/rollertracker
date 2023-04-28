@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Exercise extends Model
+class DerbyExercise extends Model
 {
     use HasFactory;
 
@@ -15,6 +15,5 @@ class Exercise extends Model
         'image',
         'category',
         'difficulty',
-        'type'
     ];
 }

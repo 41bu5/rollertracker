@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Routine extends Model
+class Exercise extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'title',
+        'name',
         'description',
-        'created_at',
-        'modified_at',
+        'image',
+        'category',
+        'difficulty',
     ];
-
-    
 }
