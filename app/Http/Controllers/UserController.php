@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use Exception;
+
 // use Inertia\Inertia;
 
 class UserController extends Controller
@@ -21,8 +23,8 @@ class UserController extends Controller
 
     public function create()
     {
-        $controller = new RegisteredUserController();
-        $controller->create();
+        //Aquí hace el return de la vista de creación
+        // Inertia::render('User/CreateUser');
     }
 
     /**
@@ -40,8 +42,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return $user;
+        try {
+            $user = User::findOrFail($id);
+            return $user;
+        } catch (Exception $e) {
+            return "No se ha podido encontrar el usuario: " . $e->getMessage();
+        }
     }
 
      /**
@@ -49,7 +55,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // Inertia::render('User/Edit', [
+        //Aquí hace el return de la vista de edición
+        // Inertia::render('User/EditUser', [
         //     'user' => $user,
         // ]);
     }
@@ -59,10 +66,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user = User::find($request->id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
+        try  {
+            $user = User::find($request->id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();  
+
+            return "Usuario actualizado con éxito: " . $user;
+        } catch (Exception $e) {
+            return "No se ha podido actualizar el usuario: " . $e->getMessage();
+        }
     }
 
     /**
@@ -70,7 +83,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+
+            return "Usuario eliminado con éxito: " .  $user;
+        } catch (Exception $e) {
+            return "No se puedo eliminar el usuario: " . $e->getMessage();
+        }
     }
 }
