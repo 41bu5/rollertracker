@@ -1,18 +1,15 @@
 import HomeContainer from '@/Components/Home/HomeContainer.jsx';
 import { Head } from '@inertiajs/react';
+import './Home.css'
 
 export default function Home({ auth, laravelVersion, phpVersion }) {
     return (
         <>
             <Head title="Home" />
-            <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-center bg-zinc-300 max-w-screen">
-                {/* BARRA DE NAVEGACIÓN
-                <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    
-                </div> */}
+            <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-center bg-zinc-300 min-w-screen">
 
                 {/* PÁGINA */}
-                <div className="max-w-screen text-center">
+                <div id="principal" className="w-full h-full text-center">
                     <h1 className='text-purple-900 font-bold text-9xl mb-3'>RollerTracker</h1>
                     <HomeContainer />
                 </div>
