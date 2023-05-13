@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('c_autonoma');
             $table->string('city');
             $table->string('logo');
-            $table->integer('phone');
-            $table->string('email');
-            $table->string('instagram');
-            $table->string('facebook');
+            $table->integer('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('facebook')->nullable();
         });
     }
 

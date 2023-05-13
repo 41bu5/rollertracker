@@ -16,4 +16,6 @@ class StandardExercise extends Model
         'category',
         'difficulty',
     ];
+
+    public $timestamps = false;
 }

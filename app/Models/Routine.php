@@ -17,5 +17,5 @@ class Routine extends Model
         'modified_at',
     ];
 
-    
+    public $timestamps = false;
 }

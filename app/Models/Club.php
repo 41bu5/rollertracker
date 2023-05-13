@@ -19,4 +19,6 @@ class Club extends Model
         'instagram',
         'facebook'
     ];
+
+    public $timestamps = false;
 }
