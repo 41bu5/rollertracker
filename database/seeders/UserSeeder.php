@@ -18,10 +18,10 @@ class UserSeeder extends Seeder
             'name' => 'Alba',
             'email' => 'albus@rollertracker.es',
             'email_verified_at' => now(),
-            'password' => Hash::make('password')
-        ]);
+            'password' => Hash::make('password'),
+            'is_admin' => true,
+        ])->assignRole('admin');
 
-        $adminUser->assignRole('admin');
         User::factory(19)->create()->each(
             function($user) {
                 $user->assignRole('standard');

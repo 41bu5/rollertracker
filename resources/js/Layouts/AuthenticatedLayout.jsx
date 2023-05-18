@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
@@ -8,23 +7,27 @@ import { Link } from '@inertiajs/react';
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
+    console.log(user);
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="bg-purple-950 border-b border-gray-200 w-full">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8 pl-10 pr-10">
                     <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                        <div className="flex justify-between">
+                            <div className="shrink-0 flex items-around">
+                                <Link href="/" className="flex items-center">
+                                <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
+                                <span className="self-center text-2xl font-semibold whitespace-nowrap text-zinc-200">RollerTracker</span>
                                 </Link>
                             </div>
 
+                            {user.is_admin ? (
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')} className='text-lg text-zinc-200'>
+                                    Vista administrador
                                 </NavLink>
                             </div>
+                            ) : (null)}
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
@@ -34,7 +37,7 @@ export default function Authenticated({ user, header, children }) {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-zinc-200 bg-purple-800 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
 
@@ -55,9 +58,11 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        { user.is_admin ? (null) : (
+                                        <Dropdown.Link href={route('profile.edit')}>Perfil</Dropdown.Link>
+                                        )}
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
+                                            Cerrar sesión
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -112,12 +117,6 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 </div>
             </nav>
-
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                </header>
-            )}
 
             <main>{children}</main>
         </div>
