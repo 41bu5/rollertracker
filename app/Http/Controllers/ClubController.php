@@ -6,16 +6,30 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Club;
 use Exception;
+use Inertia\Inertia;
 
 class ClubController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource for the guest view.
      */
-    public function index()
+    public function indexGuest()
     {
         $clubs = Club::all();
-        return $clubs;
+        return Inertia::render('Club/ClubPage', [
+            'clubs' => $clubs,
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource for the administrator view.
+     */
+    public function indexAdmin()
+    {
+        $clubs = Club::all();
+        return Inertia::render('Club/ClubPage', [
+            'clubs' => $clubs,
+        ]);
     }
 
     /**

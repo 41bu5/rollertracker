@@ -1,4 +1,3 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import LogoContainer from '@/Components/LogoContainer/LogoContainer';
 import { Link } from '@inertiajs/react';
 
