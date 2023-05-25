@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Routine;
 use Exception;
+use Inertia\Inertia;
 
 class RoutineController extends Controller
 {
@@ -15,7 +16,9 @@ class RoutineController extends Controller
     public function index()
     {
         $routines = Routine::all();
-        return $routines;
+        return Inertia::render('Personal/Standard/Routine/RoutineBrowser', [
+            'routines' => $routines,
+        ]);
     }
 
     /**

@@ -19,7 +19,7 @@ class RoutineFactory extends Factory
         return [
             'user_id' => '1',
             'title' => 'Rutina',
-            'description' => fake()->paragraph(),
+            'description' => fake()->text(),
             'created_at' => now(),
             'modified_at' => now(),
         ];

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StandardExercise;
 use Exception;
+use Inertia\Inertia;
 
 class StandardExerciseController extends Controller
 {
@@ -14,8 +15,10 @@ class StandardExerciseController extends Controller
      */
     public function index()
     {
-        $exercise = StandardExercise::all();
-        return $exercise;
+        $exercises = StandardExercise::all();
+        return Inertia::render('Personal/Standard/Search/StandardSearch', [
+            'exercises' => $exercises,
+        ]);
     }
 
     /**

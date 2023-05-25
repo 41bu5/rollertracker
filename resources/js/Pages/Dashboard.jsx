@@ -1,20 +1,22 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function Dashboard({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
-            <Head title="Dashboard" />
+            <Head title="Espacio personal" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">You're logged in!</div>
-                    </div>
-                </div>
+            <div className="flex flex-col text-6xl text-zinc-100 h-screen ">
+                <Link href="/espacio-personal/standard" className="rounded bg-purple-700 p-10 m-5 basis-2/5 h-2/5">
+                    <p className='p-5'>Ejercicios estándar</p>
+                    <p className='p-5 pt-0 text-3xl text-zinc-300'>Crea tus rutinas personalizadas con ejercicios categorizados por partes del cuerpo</p>
+                </Link>
+                <Link href="/espacio-personal/derby" className="rounded bg-purple-700 p-10 m-5 mb-0 basis-2/5 h-2/5">
+                    <p className='p-5'>Ejercicios derby</p>
+                    <p className='p-5 pt-0 text-3xl text-zinc-300'>Busca ideas para entrenar tus habilidades y registra tu nivel de dominio</p>
+                </Link>
             </div>
         </AuthenticatedLayout>
     );

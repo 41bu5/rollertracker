@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\StandardExerciseController;
+use App\Http\Controllers\DerbyExerciseController;
+use App\Http\Controllers\RoutineController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/espacio-personal', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware('auth')->name('dashboard');
 
 Route::middleware('not.admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,11 +45,26 @@ Route::get('/informacion', function() {
  * 
  */
 
-//Returns the 
 Route::get('/encuentra-clubes', [ClubController::class, 'indexGuest'])->name('clubs.guest.index');
 
 Route::get('/admin-clubes', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware('auth')->name('dashboard');
+
+Route::get('/espacio-personal/standard', function() {
+    return Inertia::render('Personal/Standard/StandardHome');
+})->middleware('auth')->name('standard.home');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/espacio-personal/standard/busqueda', [StandardExerciseController::class, 'index'])->name('standard.index');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/espacio-personal/standard/rutinas', [RoutineController::class, 'index'])->name('routines.index');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/espacio-personal/derby', [DerbyExerciseController::class, 'index'])->name('derby.index');
+});
 
 require __DIR__.'/auth.php';

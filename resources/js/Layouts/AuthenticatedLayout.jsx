@@ -95,11 +95,13 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 </div>
 
-                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
+                <div id="hola" className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
+                        {user.is_admin ? (
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
+                            Vista administrador
                         </ResponsiveNavLink>
+                        ) : (null)}
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
@@ -109,9 +111,11 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                            { user.is_admin ? (null) : (
+                            <ResponsiveNavLink href={route('profile.edit')}>Perfil</ResponsiveNavLink>
+                            )}
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
+                                Cerrar sesión
                             </ResponsiveNavLink>
                         </div>
                     </div>

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('c_autonoma');
-            $table->string('city');
+            $table->string('zona');
             $table->string('logo');
-            $table->integer('phone')->nullable();
+            $table->string('web')->nullable();
             $table->string('email')->nullable();
             $table->string('instagram')->nullable();
             $table->string('facebook')->nullable();

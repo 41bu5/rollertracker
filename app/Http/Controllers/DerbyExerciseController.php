@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DerbyExercise;
 use Exception;
+use Inertia\Inertia;
 
 class DerbyExerciseController extends Controller
 {
@@ -14,8 +15,10 @@ class DerbyExerciseController extends Controller
      */
     public function index()
     {
-        $exercise = DerbyExercise::all();
-        return $exercise;
+        $exercises = DerbyExercise::all();
+        return Inertia::render('Personal/Derby/DerbySearch', [
+            'exercises' => $exercises,
+        ]);
     }
 
     /**
