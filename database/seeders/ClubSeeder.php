@@ -26,7 +26,7 @@ class ClubSeeder extends Seeder
         
         Club::create([
             'name' => 'Despeñaperras',
-            'c_autonoma' => 'Andalucía / Extremadura',
+            'c_autonoma' => 'Mezcla',
             'zona' => 'Málaga / Cáceres',
             'logo' => 'https://picsum.photos/200',
             'web' => null,
@@ -378,8 +378,8 @@ class ClubSeeder extends Seeder
         
         Club::create([
             'name' => 'Piperrakas del Norte',
-            'c_autonoma' => 'La Rioja / País Vasco',
-            'zona' => 'Varias',
+            'c_autonoma' => 'Mezcla',
+            'zona' => 'La Rioja / País Vasco',
             'logo' => 'https://picsum.photos/200',
             'web' => null,
             'email' => null,

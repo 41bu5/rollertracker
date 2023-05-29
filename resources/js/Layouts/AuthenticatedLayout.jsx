@@ -3,30 +3,32 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+import LogoContainer from "@/Components/LogoContainer/LogoContainer";
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
-    console.log(user);
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-purple-950 border-b border-gray-200 w-full">
+            <nav className="bg-purple-950 border-b border-gray-200 w-full p-1">
                 <div className="mx-auto px-4 sm:px-6 lg:px-8 pl-10 pr-10">
                     <div className="flex justify-between h-16">
                         <div className="flex justify-between">
                             <div className="shrink-0 flex items-around">
                                 <Link href="/" className="flex items-center">
-                                <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
-                                <span className="self-center text-2xl font-semibold whitespace-nowrap text-zinc-200">RollerTracker</span>
+                                    <div className="h-max w-20 mr-6">
+                                        <LogoContainer />
+                                    </div>
+                                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-zinc-200">RollerTracker</span>
                                 </Link>
                             </div>
 
                             {user.is_admin ? (
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')} className='text-lg text-zinc-200'>
-                                    Vista administrador
-                                </NavLink>
-                            </div>
+                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <NavLink href="/admin" className='text-lg text-zinc-200'>
+                                        Vista administrador
+                                    </NavLink>
+                                </div>
                             ) : (null)}
                         </div>
 
@@ -58,8 +60,8 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        { user.is_admin ? (null) : (
-                                        <Dropdown.Link href={route('profile.edit')}>Perfil</Dropdown.Link>
+                                        {user.is_admin ? (null) : (
+                                            <Dropdown.Link href={route('profile.edit')}>Perfil</Dropdown.Link>
                                         )}
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Cerrar sesión
@@ -98,9 +100,9 @@ export default function Authenticated({ user, header, children }) {
                 <div id="hola" className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
                         {user.is_admin ? (
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Vista administrador
-                        </ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                Vista administrador
+                            </ResponsiveNavLink>
                         ) : (null)}
                     </div>
 
@@ -111,8 +113,8 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            { user.is_admin ? (null) : (
-                            <ResponsiveNavLink href={route('profile.edit')}>Perfil</ResponsiveNavLink>
+                            {user.is_admin ? (null) : (
+                                <ResponsiveNavLink href={route('profile.edit')}>Perfil</ResponsiveNavLink>
                             )}
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Cerrar sesión

@@ -6,8 +6,8 @@ import { Head } from '@inertiajs/react';
 export default function ClubPage({ clubs }) {
     return (
         <Info>
-            <Head title="Busca tu club" />
-            <SectionHeader title={'Busca tu club'} subtitle={'Descubre los clubs de la liga ARDE.'} />
+            <Head title="Clubes" />
+            <SectionHeader title={'Busca un club'} subtitle={'Descubre los clubs y alianzas de la liga.'} />
             <CardHolder clubs={clubs} />
         </Info>
     );

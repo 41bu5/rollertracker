@@ -4,17 +4,20 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
     const [partesCuerpo, setPartesCuerpo] = useState([]);
     const [dificultades, setDificultades] = useState([]);
 
+    console.log(exercises);
     useEffect(() => {
-        let fullPartes = [];
-        exercises.map((exercise) => fullPartes.push(exercise['category']));
-        setPartesCuerpo(Array.from(new Set(fullPartes)));
+        setPartesCuerpo(getUniqueValues('category'));
     }, [])
 
     useEffect(() => {
-        let fullDificultades= [];
-        exercises.map((exercise) => fullDificultades.push(exercise['difficulty']));
-        setDificultades(Array.from(new Set(fullDificultades)));
+        setDificultades(getUniqueValues('difficulty'));
     }, [])
+
+    function getUniqueValues(field) {
+        let fullArray = [];
+        exercises.map((exercise) => fullArray.push(exercise[field]));
+        return Array.from(new Set(fullArray));
+    }
 
     console.log(partesCuerpo);
     console.log(dificultades);
@@ -29,7 +32,7 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                     <option value="all">Todas</option>
                     {
                         partesCuerpo.map(
-                            parte, index => {
+                            function (parte, index) {
                                 return <option key={index} value={parte}>{parte}</option>
                             }
                         )
@@ -45,7 +48,7 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                     <option value="all">Cualquiera</option>
                     {
                         dificultades.map(
-                            nivel, index => {
+                            function (nivel, index) {
                                 return <option key={index} value={nivel}>{nivel}</option>
                             }
                         )
@@ -59,9 +62,6 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                         setFiltroKeyword(e.target.value);
                     }}
                 />
-                {/* <button type="button" className="p-3 bg-zinc-300 hover:bg-zinc-400 flex items-center justify-center rounded">
-                   Buscar
-                </button> */}
             </form>
         </div>
     );

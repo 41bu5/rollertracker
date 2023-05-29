@@ -11,8 +11,10 @@ export default function Home({ auth, laravelVersion, phpVersion }) {
 
                 {/* PÁGINA */}
                 <div id="principal" className="w-full h-full text-center flex flex-col justify-center">
-                    <div className='w-96 h-auto'>
-                        <LogoContainer />
+                    <div className='w-screen flex items-center justify-center'>
+                        <div className='w-96 h-auto'>
+                            <LogoContainer />
+                        </div>
                     </div>
                     <HomeContainer />
                 </div>

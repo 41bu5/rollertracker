@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import LogoContainer from "@/Components/LogoContainer/LogoContainer";
 
 export default function GuestNavbar() {
     return (
@@ -6,8 +7,10 @@ export default function GuestNavbar() {
             <nav className="bg-purple-950 fixed w-full z-20 top-0 left-0 border-b border-gray-200">
                 <div className="w-screen pl-10 pr-10 flex flex-wrap items-center justify-between p-4">
                     <Link href="/" className="flex items-center">
-                        <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap text-zinc-200">RollerTracker</span>
+                        <div className="h-max w-20 mr-6">
+                            <LogoContainer />
+                        </div>
+                        <span className="self-center text-3xl font-semibold whitespace-nowrap text-zinc-300">RollerTracker</span>
                     </Link>
                     <div>
                         <Link href="/" className="flex md:order-2">

@@ -24,11 +24,10 @@ class ClubController extends Controller
     /**
      * Display a listing of the resource for the administrator view.
      */
-    public function indexAdmin()
-    {
+    public function indexAdmin() {
         $clubs = Club::all();
-        return Inertia::render('Club/ClubPage', [
-            'clubs' => $clubs,
+        return Inertia::render('Admin/Club/ClubPanel', [
+            'clubs' => $clubs
         ]);
     }
 

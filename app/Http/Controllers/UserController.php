@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Exception;
-
-// use Inertia\Inertia;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -18,7 +17,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return $users;
+        return Inertia::render('Admin/User/UserPanel',[
+            'users' => $users,
+        ]);
     }
 
     public function create()

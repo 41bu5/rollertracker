@@ -22,6 +22,16 @@ class StandardExerciseController extends Controller
     }
 
     /**
+     * Display a listing of the resource in the administrator view.
+     */
+    public function indexAdmin() {
+        $exercises = StandardExercise::all();
+        return Inertia::render('Admin/Standard/StandardPanel', [
+            'exercises' => $exercises,
+        ]);
+    }
+
+    /**
      * Return the view for creating a new resource.
      */
     public function create()

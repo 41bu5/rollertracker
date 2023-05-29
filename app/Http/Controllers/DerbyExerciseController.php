@@ -22,6 +22,17 @@ class DerbyExerciseController extends Controller
     }
 
     /**
+     * Display a listing of the resource in the administrator view.
+     */
+    public function indexAdmin()
+    {
+        $exercises = DerbyExercise::all();
+        return Inertia::render('Admin/Derby/DerbyPanel', [
+            'exercises' => $exercises,
+        ]);
+    }
+
+    /**
      * Return the view for creating a new resource.
      */
     public function create()
