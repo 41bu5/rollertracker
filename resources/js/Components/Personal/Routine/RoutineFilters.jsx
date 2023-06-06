@@ -8,7 +8,7 @@ export default function RoutineFilters( { setFiltroKeyword, setFiltroOrden }) {
                         setFiltroOrden(e.target.value);
                         console.log('Select orden ' + e.target.value);
                     }}>
-                    <option value="alfa" selected>Orden alfabético</option>
+                    <option value="alfa">Orden alfabético</option>
                     <option value="created_asc">Creación (asc.)</option>
                     <option value="created_desc">Creación (desc.)</option>
                     <option value="modified_asc">Modificación (asc.)</option>
