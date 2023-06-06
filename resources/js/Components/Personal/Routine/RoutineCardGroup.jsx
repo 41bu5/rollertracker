@@ -2,17 +2,18 @@ import { useState, useEffect } from "react";
 // import * as ordenRutinas from './ordenRutinas';
 
 export default function RoutineCardGroup({ routines, filtroKeyword, filtroOrden }) {
-    const [rutinasFiltradas, setrRutinasFiltradas] = useState(routines);
+    const [rutinasFiltradas, setRutinasFiltradas] = useState(routines);
 
     useEffect(() => {
-        let rutinasFiltradas = 
+        let newRutinas = 
         filtroKeyword == '' || filtroKeyword == ' ' || filtroKeyword == null || filtroKeyword == undefined ?
         routines
         : 
         routines.filter(
-            routine => ((routine.name).toLowerCase()).includes(filtroKeyword.toLowerCase())
+            routine => ((routine.title).toLowerCase()).includes(filtroKeyword.toLowerCase())
         );
-        rutinasFiltradas = reordenarRutinas(rutinasFiltradas, filtroOrden);
+        newRutinas = reordenarRutinas(rutinasFiltradas, filtroOrden);
+        setRutinasFiltradas(newRutinas);
     }, [filtroKeyword, filtroOrden]);
 
     function reordenarRutinas(rutinas, orden) {
@@ -34,6 +35,8 @@ export default function RoutineCardGroup({ routines, filtroKeyword, filtroOrden 
     function ordenAlfabetico(rutinas) {
         return rutinas.sort((a, b) => a.title.localeCompare(b.title));
     }
+
+    // function ordenFechas(rutinas, 'created')
 
     // const sortedActivities = activities.slice().sort((a, b) => b.date - a.date)
     return (
