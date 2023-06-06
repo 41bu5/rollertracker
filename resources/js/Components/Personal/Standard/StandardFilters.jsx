@@ -4,7 +4,6 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
     const [partesCuerpo, setPartesCuerpo] = useState([]);
     const [dificultades, setDificultades] = useState([]);
 
-    console.log(exercises);
     useEffect(() => {
         setPartesCuerpo(getUniqueValues('category'));
     }, [])
@@ -19,8 +18,6 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
         return Array.from(new Set(fullArray));
     }
 
-    console.log(partesCuerpo);
-    console.log(dificultades);
     return (
         <div className="bg-zinc-100 flex justify-start p-5 ml-2 me-2 w-full text-center">
             <form className="flex h-10 m-3">
@@ -28,6 +25,7 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                 <select className="bg-zinc-50 border-zinc-500 rounded" name="zona"
                 onChange={(e) => {
                     setFiltroZonaEscogida(e.target.value);
+                    console.log('Select zona ' + e.target.value);
                 }}>
                     <option value="all">Todas</option>
                     {
@@ -44,6 +42,7 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                 <select className="bg-zinc-50 border-zinc-500 rounded" name="dificultad"
                 onChange={(e) => {
                     setFiltroDificultad(e.target.value);
+                    console.log('Select dificultad ' + e.target.value);
                 }}>
                     <option value="all">Cualquiera</option>
                     {
@@ -60,6 +59,7 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                 <input className="bg-zinc-50 border-zinc-500 rounded" type="text" name="titulo"
                     onChange={ (e) => {
                         setFiltroKeyword(e.target.value);
+                        console.log('Select keyword a ' + e.target.value)
                     }}
                 />
             </form>

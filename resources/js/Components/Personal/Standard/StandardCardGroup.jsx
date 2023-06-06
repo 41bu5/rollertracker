@@ -1,26 +1,50 @@
 import StandardCard from "@/Components/Personal/Standard/StandardCard";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-export default function StandardCardGroup( { exercises, filtroKeyword, filtroZonaEscogida, filtroDificultad }) {
-    const [ejerciciosEscogidos, setEjerciciosEscogidos] = useState(exercises)
+export default function StandardCardGroup( { exercises, filtroKeyword, filtroZonaEscogida, filtroDificultad, setShowModal }) {
+    const [ejerciciosEscogidos, setEjerciciosEscogidos] = useState(exercises);
 
     useEffect(() => {
-        var nuevosEjercicios = exercises;
-        if (filtroZonaEscogida != 'all')
-            nuevosEjercicios.filter(exercise => exercise['category'] == filtroZonaEscogida);
-        if (filtroDificultad != 'all')
-            nuevosEjercicios = nuevosEjercicios.filter(exercise => exercise['category'] == filtroZonaEscogida);
-        if (filtroKeyword != '' && filtroKeyword != ' ' && filtroKeyword)
-            nuevosEjercicios = nuevosEjercicios.filter(exercise => exercise['name']);
-        setEjerciciosEscogidos(nuevosEjercicios);
+        let newExercises = exercises.filter(
+            exercise => filtrarDificultad(exercise) && filtrarZona(exercise) && filtrarKeyword(exercise)
+        );
+        setEjerciciosEscogidos(newExercises);
     }, [filtroKeyword, filtroZonaEscogida, filtroDificultad])
 
+
+    function filtrarDificultad(exercise) {
+        if (filtroDificultad == 'all' || exercise['difficulty'] == filtroDificultad)
+            return true;
+
+        return false;
+    }
+
+    function filtrarZona(exercise) {
+        if (filtroZonaEscogida == 'all' || exercise['category'] == filtroZonaEscogida)
+            return true;
+
+        return false;
+    }
+
+    function filtrarKeyword(exercise) {
+        if (filtroKeyword == '' || filtroKeyword == null || filtroKeyword == ' ' || buscarKeyword(exercise))
+            return true;
+
+        return false;
+    }
+
+    function buscarKeyword(exercise) {
+        let name = exercise['name'].toLowerCase();
+        return name.includes(filtroKeyword.toLowerCase()) ? true : false;
+    }
+
+
     return (
-        <div className="bg-zinc-200 w-full text-center flex flex-wrap">
+        <div className="bg-zinc-200 w-screen text-center flex flex-wrap pt-2">
             {
                 ejerciciosEscogidos.map(
-                    (exercise) => {
-                        return <StandardCard exercise={exercise} />
+                    (exercise, index) => {
+                        return <StandardCard key={index} exercise={exercise} setShowModal={setShowModal} />
                     }
                 )
             }

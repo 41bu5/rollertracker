@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react';
 import './Home.css'
 import LogoContainer from '@/Components/LogoContainer/LogoContainer';
 
-export default function Home({ auth, laravelVersion, phpVersion }) {
+export default function Home() {
     return (
         <>
             <Head title="Home" />

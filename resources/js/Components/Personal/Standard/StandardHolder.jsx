@@ -1,11 +1,26 @@
 import StandardFilters from "@/Components/Personal/Standard/StandardFilters";
 import StandardCardGroup from "@/Components/Personal/Standard/StandardCardGroup";
-import { useState } from "react";
+import Modal from "@/Components/Modal";
+import StandardModal from "@/Components/Personal/Standard/StandardModal";
+import { useState, useEffect } from "react";
 
 export default function StandardHolder( { exercises } ) {
     const [filtroKeyword, setFiltroKeyword] = useState('');
-    const [filtroZonaEscogida, setFiltroZonaEscogida] = useState('');
-    const [filtroDificultad, setFiltroDificultad] = useState('');
+    const [filtroZonaEscogida, setFiltroZonaEscogida] = useState('all');
+    const [filtroDificultad, setFiltroDificultad] = useState('all');
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        console.log('Cambio de keyword a ' + filtroKeyword);
+    }, [filtroKeyword]);
+    
+    useEffect(() => {
+        console.log('Cambio de zona a ' + filtroZonaEscogida);
+    }, [filtroZonaEscogida]);
+    
+    useEffect(() => {
+        console.log('Cambio de dificultad a ' + filtroDificultad);
+    }, [filtroDificultad]);
 
     return (
         <>
@@ -14,11 +29,15 @@ export default function StandardHolder( { exercises } ) {
                 setFiltroZonaEscogida={setFiltroZonaEscogida}
                 setFiltroDificultad={setFiltroDificultad}
             />
-            <StandardCardGroup exercises={ exercises }
+            <StandardCardGroup exercises={exercises}
                 filtroKeyword={filtroKeyword}
                 filtroZonaEscogida={filtroZonaEscogida}
                 filtroDificultad={filtroDificultad}
+                setShowModal={setShowModal}
             />
+            <Modal show={showModal} onClose={() => setShowModal(false)}>
+                <StandardModal />
+            </Modal>
         </>
     );
 }
