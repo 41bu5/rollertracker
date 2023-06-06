@@ -25,7 +25,7 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                 <select className="bg-zinc-50 border-zinc-500 rounded" name="zona"
                 onChange={(e) => {
                     setFiltroZonaEscogida(e.target.value);
-                    console.log('Select zona ' + e.target.value);
+                    // console.log('Select zona ' + e.target.value);
                 }}>
                     <option value="all">Todas</option>
                     {
@@ -42,7 +42,7 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                 <select className="bg-zinc-50 border-zinc-500 rounded" name="dificultad"
                 onChange={(e) => {
                     setFiltroDificultad(e.target.value);
-                    console.log('Select dificultad ' + e.target.value);
+                    // console.log('Select dificultad ' + e.target.value);
                 }}>
                     <option value="all">Cualquiera</option>
                     {
@@ -59,7 +59,7 @@ export default function StandardFilters( { exercises, setFiltroKeyword, setFiltr
                 <input className="bg-zinc-50 border-zinc-500 rounded" type="text" name="titulo"
                     onChange={ (e) => {
                         setFiltroKeyword(e.target.value);
-                        console.log('Select keyword a ' + e.target.value)
+                        // console.log('Select keyword a ' + e.target.value)
                     }}
                 />
             </form>

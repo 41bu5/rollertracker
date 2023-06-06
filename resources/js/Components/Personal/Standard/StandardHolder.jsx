@@ -10,17 +10,20 @@ export default function StandardHolder( { exercises } ) {
     const [filtroDificultad, setFiltroDificultad] = useState('all');
     const [showModal, setShowModal] = useState(false);
 
-    useEffect(() => {
-        console.log('Cambio de keyword a ' + filtroKeyword);
-    }, [filtroKeyword]);
+    /**
+     * Pruebas que hice.
+     */
+    // useEffect(() => {
+    //     console.log('Cambio de keyword a ' + filtroKeyword);
+    // }, [filtroKeyword]);
     
-    useEffect(() => {
-        console.log('Cambio de zona a ' + filtroZonaEscogida);
-    }, [filtroZonaEscogida]);
+    // useEffect(() => {
+    //     console.log('Cambio de zona a ' + filtroZonaEscogida);
+    // }, [filtroZonaEscogida]);
     
-    useEffect(() => {
-        console.log('Cambio de dificultad a ' + filtroDificultad);
-    }, [filtroDificultad]);
+    // useEffect(() => {
+    //     console.log('Cambio de dificultad a ' + filtroDificultad);
+    // }, [filtroDificultad]);
 
     return (
         <>

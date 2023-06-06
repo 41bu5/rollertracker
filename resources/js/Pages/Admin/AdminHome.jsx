@@ -1,6 +1,11 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
+/**
+ * 
+ * Página principal para el panel de administración, sólo visible por las cuentas de tipo administrador.
+ * 
+ */
 export default function Admin({ auth }) {
     return (
         <Authenticated

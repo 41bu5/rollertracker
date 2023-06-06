@@ -1,6 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
+/**
+ * 
+ * Página principal de la aplicación para el usuario logeado.
+ * 
+ */
 export default function Dashboard({ auth }) {
     return (
         <AuthenticatedLayout

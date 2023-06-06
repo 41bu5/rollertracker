@@ -3,6 +3,11 @@ import { Head } from '@inertiajs/react';
 import './Home.css'
 import LogoContainer from '@/Components/LogoContainer/LogoContainer';
 
+/**
+ * 
+ * Página de inicio de la aplicación.
+ * 
+ */
 export default function Home() {
     return (
         <>

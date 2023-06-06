@@ -3,6 +3,13 @@ import SectionHeader from "@/Components/SectionHeader/SectionHeader";
 import Info from "@/Layouts/InfoLayout";
 import { Head } from '@inertiajs/react';
 
+/**
+ * 
+ * Página visible por todo tipo de clientes que permite el visionado y filtrado de
+ * tarjetas con información de los clubes disponibles en la base de datos, además de proporcionar un
+ * formulario para la solicitud de nuevas instancias.
+ * 
+ */
 export default function ClubPage({ clubs }) {
     return (
         <Info>

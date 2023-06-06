@@ -3,6 +3,11 @@ import SearchHeader from "@/Components/Personal/SearchHeader/SearchHeader";
 import StandardHolder from "@/Components/Personal/Standard/StandardHolder";
 import { Head } from "@inertiajs/react";
 
+/**
+ * 
+ * Página de búsqueda y gestión de ejercicios estándar.
+ * 
+ */
 export default function StandardSearch( { auth, exercises }) {
     return (
         <Authenticated
