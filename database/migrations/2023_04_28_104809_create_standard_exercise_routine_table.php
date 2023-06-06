@@ -24,6 +24,7 @@ return new class extends Migration
                 ->constrained('standard_exercises')
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
+                
             $table->integer('repeticiones');
         });
     }

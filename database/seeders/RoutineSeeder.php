@@ -13,6 +13,28 @@ class RoutineSeeder extends Seeder
      */
     public function run(): void
     {
-        Routine::factory(19)->create();
+        Routine::create([
+            'user_id' => '1',
+            'title' => 'HiiT 10 minutos',
+            'description' => 'Ola beso',
+            'created_at' => date_create('2021-03-15'),
+            'modified_at' => date_create('2022-12-04'),
+        ]);
+        
+        Routine::create([
+            'user_id' => '1',
+            'title' => 'Otra rutina oleee',
+            'description' => 'Ola beso',
+            'created_at' => date_create('2022-03-15'),
+            'modified_at' => date_create('2023-06-06'),
+        ]);
+
+        Routine::create([
+            'user_id' => '1',
+            'title' => 'Calentamiento trankilito',
+            'description' => 'AAaa',
+            'created_at' => date_create('2023-03-15'),
+            'modified_at' => date_create('2023-04-04'),
+        ]);
     }
 }
