@@ -7,17 +7,28 @@ use Illuminate\Http\Request;
 use App\Models\Routine;
 use Exception;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class RoutineController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource for the admin view.
      */
-    public function index()
+    public function indexAdmin()
     {
         $routines = Routine::all();
         return Inertia::render('Personal/Standard/Routine/RoutineBrowser', [
             'routines' => $routines,
+        ]);
+    }
+
+    /**
+     * Display a listing of the resources associated with a certain user.
+     */
+    public function indexUser() {
+        $userRoutines = DB::table('routines')->where('user_id', auth()->id())->get();
+        return Inertia::render('Personal/Standard/Routine/RoutineBrowser', [
+            'routines' => $userRoutines,
         ]);
     }
 

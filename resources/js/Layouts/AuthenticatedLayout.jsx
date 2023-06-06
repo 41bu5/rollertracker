@@ -23,13 +23,26 @@ export default function Authenticated({ user, header, children }) {
                                 </Link>
                             </div>
 
-                            {user.is_admin ? (
+                            
                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    {user.is_admin ? (
                                     <NavLink href="/admin" className='text-lg text-zinc-200'>
                                         Vista administrador
                                     </NavLink>
+                                    ) : (null)}
+                                    <NavLink href="/espacio-personal" className='text-lg text-zinc-200'>
+                                        Zona personal
+                                    </NavLink>
+                                    <NavLink href="/espacio-personal/standard" className='text-lg text-zinc-200'>
+                                        Estándar
+                                    </NavLink>
+                                    <NavLink href="/espacio-personal/standard/rutinas" className='text-lg text-zinc-200'>
+                                        Rutinas
+                                    </NavLink>
+                                    <NavLink href="/espacio-personal/derby" className='text-lg text-zinc-200'>
+                                        Derby
+                                    </NavLink>
                                 </div>
-                            ) : (null)}
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
