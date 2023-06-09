@@ -6,7 +6,7 @@ import { Head, Link } from '@inertiajs/react';
  * Página principal de la aplicación para el usuario logeado.
  * 
  */
-export default function Dashboard({ auth }) {
+export default function Personal({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}

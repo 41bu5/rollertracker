@@ -113,7 +113,7 @@ export default function Authenticated({ user, header, children }) {
                 <div id="hola" className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
                         {user.is_admin ? (
-                            <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            <ResponsiveNavLink href={route('admin')} active={route().current('admin')}>
                                 Vista administrador
                             </ResponsiveNavLink>
                         ) : (null)}

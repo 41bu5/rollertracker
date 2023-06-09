@@ -81,7 +81,8 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="flex flex-col justify-end mt-4">
-                    {canResetPassword && (
+                    {/* He eliminado la funcionalidad preinstalada de resetear contraseña al no disponer de un server de email. */}
+                    {/* {canResetPassword && (
                         <>
                         <Link
                             href={route('password.request')}
@@ -89,14 +90,14 @@ export default function Login({ status, canResetPassword }) {
                         >
                             ¿Has olvidado tu contraseña?
                         </Link>
-                        <p className='text-center text-sm text-gray-500'>o</p>
+                        <p className='text-center text-sm text-gray-500'>o</p> */}
                         <Link href={route('register')}
                             className="underline text-center text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             ¿No tienes cuenta? Regístrate.
                         </Link>
-                        </>
-                    )}
+                        {/* </>
+                    )} */}
                 </div>
             </form>
         </GuestLayout>

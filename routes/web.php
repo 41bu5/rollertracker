@@ -40,8 +40,8 @@ Route::get('/informacion', function() {
  */
 
 Route::get('/espacio-personal', function () {
-    return Inertia::render('Dashboard');
-})->middleware('auth')->name('dashboard');
+    return Inertia::render('Personal');
+})->middleware('auth')->name('personal');
 
 Route::middleware('not.admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
