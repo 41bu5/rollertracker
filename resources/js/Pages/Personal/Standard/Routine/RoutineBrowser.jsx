@@ -18,8 +18,11 @@ export default function RoutineBrowser( { auth, routines }) {
             user={ auth.user }
         >
             <SearchHeader title="Tus rutinas"/>
-            <RoutineFilters setFiltroKeyword={setFiltroKeyword} setFiltroOrden={setFiltroOrden} />
-            <RoutineCardGroup routines={routines} filtroKeyword={filtroKeyword} filtroOrden={filtroOrden}/>
+            <RoutineFilters setFiltroKeyword={setFiltroKeyword}
+            setFiltroOrden={setFiltroOrden} />
+            <RoutineCardGroup routines={routines}
+            filtroKeyword={filtroKeyword}
+            filtroOrden={filtroOrden}/>
         </Authenticated>
     );
 }
