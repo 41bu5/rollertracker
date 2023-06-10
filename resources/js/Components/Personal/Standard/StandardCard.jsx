@@ -1,6 +1,6 @@
 import './StandardCard.css';
 
-export default function StandardCard( { exercise, setShowModal }) {
+export default function StandardCard( { exercise, setShowModal, setEjercicioModal }) {
     return (
         <div className="basis-1/2 flex p-2">
             <div className="basis-3/4 flex flex-col bg-zinc-50">
@@ -26,7 +26,11 @@ export default function StandardCard( { exercise, setShowModal }) {
                     </div>
                 </div>
             </div>
-            <button className="basis-1/4 bg-gray-700 hover:bg-gray-900 hover:text-zinc-100 hover:text-xl flex items-center justify-center" onClick={() => setShowModal(true)}>
+            <button className="basis-1/4 bg-gray-700 hover:bg-gray-900 hover:text-zinc-100 hover:text-xl flex items-center justify-center"
+            onClick={() => {
+                setEjercicioModal(exercise);
+                setShowModal(true);
+            }}>
                 <p type="button" className='text-zinc-50'>{'Ver más >>'}</p>
             </button>
         </div>

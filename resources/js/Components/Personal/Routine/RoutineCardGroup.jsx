@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import * as ordenRutinas from './ordenRutinas';
+import RoutineCard from "@/Components/Personal/Routine/RoutineCard";
 
 export default function RoutineCardGroup({ routines, filtroKeyword, filtroOrden }) {
     const [rutinasFiltradas, setRutinasFiltradas] = useState(routines);
@@ -16,38 +16,38 @@ export default function RoutineCardGroup({ routines, filtroKeyword, filtroOrden 
         setRutinasFiltradas(newRutinas);
     }, [filtroKeyword, filtroOrden]);
 
-    function reordenarRutinas(rutinas, orden) {
+    function reordenarRutinas(rutinasFiltrar, orden) {
         switch (orden) {
-            case "alfa" : ordenAlfabetico(rutinas);
+            case "alfa" : ordenAlfabetico(rutinasFiltrar);
             break;
-            // case "created_asc" : ordenFechas(rutinas, 'created', 'asc');
+            // case "created_asc" : ordenFechas(rutinasFiltrar, 'created', 'asc');
             // break;
-            // case "created_desc" : ordenFechas(rutinas, 'created', 'desc');
+            // case "created_desc" : ordenFechas(rutinasFiltrar, 'created', 'desc');
             // break;
-            // case "modified_asc" : ordenFechas(rutinas, 'modified', 'asc');
+            // case "modified_asc" : ordenFechas(rutinasFiltrar, 'modified', 'asc');
             // break;
-            // case "modified_desc" : ordenFechas(rutinas, 'modified', 'desc');
+            // case "modified_desc" : ordenFechas(rutinasFiltrar, 'modified', 'desc');
             // break;
-            default : ordenAlfabetico(rutinas);
+            default : ordenAlfabetico(rutinasFiltrar);
         }
     }
 
-    function ordenAlfabetico(rutinas) {
-        return rutinas.sort((a, b) => a.title.localeCompare(b.title));
+    function ordenAlfabetico(rutinasFiltrar) {
+        return rutinasFiltrar.sort((a, b) => a.title.localeCompare(b.title));
     }
 
     // function ordenFechas(rutinas, 'created')
 
     // const sortedActivities = activities.slice().sort((a, b) => b.date - a.date)
     return (
-        <>
+        <div className="bg-zinc-200 w-screen text-center flex flex-wrap pt-2">
             {
                 routines != undefined ? (routines.map(
                     (routine, index) => {
-                        return <p key={index}>{routine.title}</p>
+                        return <RoutineCard key={index} routine={routine} />
                     }
                 )) : (null)
             }
-        </>
+        </div>
     )
 }

@@ -9,6 +9,7 @@ export default function StandardHolder( { exercises } ) {
     const [filtroZonaEscogida, setFiltroZonaEscogida] = useState('all');
     const [filtroDificultad, setFiltroDificultad] = useState('all');
     const [showModal, setShowModal] = useState(false);
+    const [ejercicioModal, setEjercicioModal] = useState(null);
 
     /**
      * Pruebas que hice.
@@ -37,9 +38,10 @@ export default function StandardHolder( { exercises } ) {
                 filtroZonaEscogida={filtroZonaEscogida}
                 filtroDificultad={filtroDificultad}
                 setShowModal={setShowModal}
+                setEjercicioModal={setEjercicioModal}
             />
             <Modal show={showModal} onClose={() => setShowModal(false)}>
-                <StandardModal />
+                <StandardModal ejercicioModal={ejercicioModal} />
             </Modal>
         </>
     );

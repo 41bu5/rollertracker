@@ -1,7 +1,7 @@
 import StandardCard from "@/Components/Personal/Standard/StandardCard";
 import { useEffect, useMemo, useState } from "react";
 
-export default function StandardCardGroup( { exercises, filtroKeyword, filtroZonaEscogida, filtroDificultad, setShowModal }) {
+export default function StandardCardGroup( { exercises, filtroKeyword, filtroZonaEscogida, filtroDificultad, setShowModal, setEjercicioModal }) {
     const [ejerciciosEscogidos, setEjerciciosEscogidos] = useState(exercises);
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export default function StandardCardGroup( { exercises, filtroKeyword, filtroZon
             {
                 ejerciciosEscogidos.map(
                     (exercise, index) => {
-                        return <StandardCard key={index} exercise={exercise} setShowModal={setShowModal} />
+                        return <StandardCard key={index} exercise={exercise} setShowModal={setShowModal} setEjercicioModal={setEjercicioModal} />
                     }
                 )
             }

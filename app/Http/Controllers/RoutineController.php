@@ -25,7 +25,8 @@ class RoutineController extends Controller
     /**
      * Display a listing of the resources associated with a certain user.
      */
-    public function indexUser() {
+    public function indexUser()
+    {
         $userRoutines = DB::table('routines')->where('user_id', auth()->id())->get();
         return Inertia::render('Personal/Standard/Routine/RoutineBrowser', [
             'routines' => $userRoutines,
@@ -68,16 +69,34 @@ class RoutineController extends Controller
     {
         try {
             $routine = Routine::findOrFail($id);
-            return $routine;
+            $routineExercises = $this->getExercisesArray($id);
+            return Inertia::render('Personal/Standard/Routine/RoutineDetails', [
+                'routine' => $routine,
+                'routineExercises' => $routineExercises,
+            ]);
         } catch (Exception $e) {
             return "No se ha podido encontrar la rutina: " . $e->getMessage();
         }
     }
 
+    function getExercisesArray($id)
+    {
+        try {
+            $routineExercises = [];
+            $relationRows = DB::table('standard_exercise_routine')->where('routine_id', $id)->get();
+            foreach ($relationRows as $exerciseInRelationship) {
+                $exerciseDetail = DB::table('standard_exercises')->where('id', $exerciseInRelationship->standard_exercise_id)->get();
+                array_push($routineExercises, [$exerciseDetail, $exerciseInRelationship->repeticiones]);
+            }
+            return $routineExercises;
+        } catch (Exception $e) {
+            return "No se han podido recuperar los ejercicios contenidos en la rutina: " . $e->getMessage();
+        }
+    }
 
     /**
-    * Show the form for editing the specified resource.
-    */
+     * Show the form for editing the specified resource.
+     */
     public function edit(Routine $routine)
     {
         //Aquí hace el return de la vista de edición
@@ -105,7 +124,7 @@ class RoutineController extends Controller
             return "No se pudo editar la rutina:" . $e->getMessage();
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */

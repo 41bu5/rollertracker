@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/espacio-personal/standard/rutinas', [RoutineController::class, 'indexUser'])->name('routines.index');
+    Route::get('/espacio-personal/standard/rutinas/{id}', [RoutineController::class, 'show'])->name('routines.show');
 });
 
 Route::middleware('auth')->group(function () {
