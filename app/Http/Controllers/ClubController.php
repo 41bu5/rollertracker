@@ -27,7 +27,7 @@ class ClubController extends Controller
     public function indexAdmin() {
         $clubs = Club::all();
         return Inertia::render('Admin/Club/ClubPanel', [
-            'clubs' => $clubs
+            'clubs' => $clubs,
         ]);
     }
 
@@ -36,8 +36,7 @@ class ClubController extends Controller
      */
     public function create()
     {
-        //Aquí hace el return de la vista de creación
-        // Inertia::render('Club/CreateClub');
+        return Inertia::render('Admin/Club/CreateClub');
     }
 
     /**

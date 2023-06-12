@@ -18,8 +18,8 @@ export default function ClubCardGroup({ clubs, filtroComunidad }) {
         <div className="bg-zinc-200 w-full text-center flex flex-wrap">
             {
                 clubesEscogidos.map(
-                    (club) => {
-                        return <ClubCard club={club} />
+                    (club, index) => {
+                        return <ClubCard key={index} club={club} />
                     }
                 )
             }
