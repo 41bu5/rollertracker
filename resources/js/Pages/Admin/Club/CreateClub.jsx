@@ -56,7 +56,7 @@ export default function CreateClub({ auth }) {
                     </div>
                 </div>
             </div>
-            <Link href="/admin/clubs" className="bg-violet-500 hover:bg-violet-700 font-semibold text-white py-2 px-4 border border-transparent rounded text-xl">Crear</Link>
+            <Link href="/admin/clubs/post" className="bg-violet-500 hover:bg-violet-700 font-semibold text-white py-2 px-4 border border-transparent rounded text-xl">Crear</Link>
             </div>
         </Authenticated>
     );
