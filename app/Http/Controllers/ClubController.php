@@ -56,7 +56,7 @@ class ClubController extends Controller
             $club->facebook = $request->facebook;
             $club->save();
 
-            return "Club creado con éxito: " . $club;
+            redirect ()->action([Club::class,'indexAdmin']);
         } catch (Exception $e) {
             return "No se ha podido crear el club: " . $e->getMessage();
         }

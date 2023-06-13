@@ -90,7 +90,7 @@ Route::get('/admin', function () {
 Route::middleware('admin')->group(function () {
     Route::get('/admin/clubs', [ClubController::class, 'indexAdmin'])->name('admin.clubs');
     Route::get('/admin/clubs/create', [ClubController::class, 'create'])->name('admin.clubs.create');
-    Route::put('/admin/clubs/put', [ClubController::class, 'store'])->name('admin.clubs.store');
+    Route::post('/admin/clubs/post', [ClubController::class, 'store'])->name('admin.clubs.store');
 });
 
 //Panel de ejercicios estándar.
