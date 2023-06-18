@@ -5,6 +5,8 @@ use App\Http\Controllers\ClubController;
 use App\Http\Controllers\StandardExerciseController;
 use App\Http\Controllers\DerbyExerciseController;
 use App\Http\Controllers\RoutineController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,7 +35,7 @@ Route::get('/', function () {
 Route::get('/encuentra-clubes', [ClubController::class, 'indexGuest'])->name('clubs.index');
 
 //Vista de información
-Route::get('/informacion', function() {
+Route::get('/informacion', function () {
     return Inertia::render('Informacion/InfoPage');
 });
 
@@ -42,7 +44,7 @@ Route::get('/informacion', function() {
  * 
  */
 
- //Espacio personal
+//Espacio personal
 Route::get('/espacio-personal', function () {
     return Inertia::render('Personal');
 })->middleware('auth')->name('personal');
@@ -55,7 +57,7 @@ Route::middleware('not.admin')->group(function () {
 });
 
 //Home del espacio para ejercicios estándar
-Route::get('/espacio-personal/standard', function() {
+Route::get('/espacio-personal/standard', function () {
     return Inertia::render('Personal/Standard/StandardHome');
 })->middleware('auth')->name('standard.home');
 
@@ -68,8 +70,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     //Visualización de todas las rutinas del usuario
     Route::get('/espacio-personal/standard/rutinas', [RoutineController::class, 'indexUser'])->name('routines.index');
+    //Vista creación de rutina
+    Route::get('/espacio-personal/standard/rutinas/create', [RoutineController::class, 'create'])->name('routines.create');
     //Visualización de una rutina en concreto y sus ejercicios
     Route::get('/espacio-personal/standard/rutinas/{id}', [RoutineController::class, 'show'])->name('routines.show');
+    //Creación de rutina en la BBDD
+    Route::post('/espacio-personal/standard/rutinas', [RoutineController::class, 'store'])->name('routines.store');
 });
 
 Route::middleware('auth')->group(function () {
@@ -81,7 +87,7 @@ Route::middleware('auth')->group(function () {
  * Administrator user routes.
  */
 
- //Panel administrador.
+//Panel administrador.
 Route::get('/admin', function () {
     return Inertia::render('Admin/AdminHome');
 })->middleware('admin')->name('admin');
@@ -90,25 +96,34 @@ Route::get('/admin', function () {
 Route::middleware('admin')->group(function () {
     Route::get('/admin/clubs', [ClubController::class, 'indexAdmin'])->name('admin.clubs');
     Route::get('/admin/clubs/create', [ClubController::class, 'create'])->name('admin.clubs.create');
-    Route::post('/admin/clubs/post', [ClubController::class, 'store'])->name('admin.clubs.store');
+    Route::post('/admin/clubs', [ClubController::class, 'store'])->name('admin.clubs.store');
+    Route::patch('/admin/clubs', [ClubController::class, 'update'])->name('admin.clubs.update');
+    Route::delete('/admin/clubs/{id}', [ClubController::class, 'destroy'])->name('admin.clubs.delete');
 });
 
 //Panel de ejercicios estándar.
 Route::middleware('admin')->group(function () {
     Route::get('/admin/standard', [StandardExerciseController::class, 'indexAdmin'])->name('admin.standard');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/admin/standard/create', [StandardExerciseController::class, 'create'])->name('admin.standard.create');
+    Route::post('/admin/standard', [StandardExerciseController::class, 'store'])->name('admin.standard.store');
+    Route::patch('/admin/standard', [StandardExerciseController::class, 'update'])->name('admin.standard.update');
+    Route::delete('/admin/standard/{id}', [StandardExerciseController::class, 'destroy'])->name('admin.standard.delete');
 });
 
 //Panel de ejercicios derby.
 Route::middleware('admin')->group(function () {
-    Route::get('/admin/derby', [DerbyExercisesController::class, 'indexAdmin'])->name('admin.derby');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/admin/derby', [DerbyExerciseController::class, 'indexAdmin'])->name('admin.derby');
+    Route::get('/admin/derby/create', [DerbyExerciseController::class, 'create'])->name('admin.derby.create');
+    Route::post('/admin/derby', [DerbyExerciseController::class, 'store'])->name('admin.derby.store');
+    Route::patch('/admin/derby', [DerbyExerciseController::class, 'update'])->name('admin.derby.update');
+    Route::delete('/admin/derby/{id}', [DerbyExerciseController::class, 'destroy'])->name('admin.derby.delete');
 });
 
 //Panel de usuarios.
 Route::middleware('admin')->group(function () {
     Route::get('/admin/users', [UserController::class, 'indexAdmin'])->name('admin.users');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::post('/admin/users', [RegisteredUserController::class, 'storeAdmin']);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

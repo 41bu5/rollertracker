@@ -44,6 +44,22 @@ return [
             'throw' => false,
         ],
 
+        'club_logos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/club_logos'),
+            'url' => env('APP_URL').'/storage/club-logos',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'exercise_images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/exercise_images'),
+            'url' => env('APP_URL').'/storage/exercise-images',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -70,7 +86,9 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('images') => storage_path('app/public/images'),
+        public_path('club-logos') => storage_path('app/public/images/club_logos'),
+        public_path('exercise-images') => storage_path('app/public/images/exercise_images'),
     ],
 
 ];

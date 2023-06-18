@@ -1,6 +1,6 @@
 import ClubPanelTableRow from "@/Components/Admin/Club/ClubPanelTableRow";
 
-export default function ClubPanelTable({ clubs }) {
+export default function ClubPanelTable({ clubs, setLogoModal, setShowModalLogo, setShowModalEdit, setClubEdit, setDeleteId, setShowModalDelete }) {
     console.table(clubs);
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-screen min-w-screen text-center p-10">
@@ -22,7 +22,13 @@ export default function ClubPanelTable({ clubs }) {
                     {
                         clubs.map(
                             (club, index) => {
-                                return <ClubPanelTableRow key={index} club={club} />
+                                return <ClubPanelTableRow key={index} club={club}
+                                setLogoModal={setLogoModal}
+                                setShowModalLogo={setShowModalLogo}
+                                setShowModalEdit={setShowModalEdit}
+                                setClubEdit={setClubEdit}
+                                setShowModalDelete={setShowModalDelete}
+                                setDeleteId={setDeleteId} />
                             }
                         )
                     }

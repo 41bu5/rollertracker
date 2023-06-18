@@ -1,6 +1,6 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link, Head } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/Components/Modal";
 import ConfirmationModal from "../ConfirmationModal";
 
@@ -9,76 +9,116 @@ export default function CreateClub({ auth }) {
     const [clubName, setClubName] = useState(null);
     const [clubComunidad, setClubComunidad] = useState(null);
     const [clubZona, setClubZona] = useState(null);
-    const [clubLogo, setClubLogo] = useState(null);
     const [clubWeb, setClubWeb] = useState(null);
     const [clubEmail, setClubEmail] = useState(null);
     const [clubInstagram, setClubInstagram] = useState(null);
     const [clubFacebook, setClubFacebook] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [submitConfirmation, setSubmitConfirmation] = useState(false);
+    const formulario = new FormData();
 
+    useEffect(() => {
+        submitConfirmation ? submitData() : console.log('No mandado');
+    }, [submitConfirmation])
+
+    function setUpData() {
+        formulario.set('name', clubName);
+        formulario.set('c_autonoma', clubComunidad);
+        formulario.set('zona', clubZona);
+        formulario.set('logo', document.querySelector('#logo').files[0]);
+        formulario.set('web', clubWeb);
+        formulario.set('email', clubEmail);
+        formulario.set('instagram', clubInstagram);
+        formulario.set('facebook', clubFacebook);
+    }
 
     function submitForm() {
         clearValidationBorders();
 
         if (validateData()) {
-            const formulario = new FormData();
-
-            formulario.append('name', clubName);
-            formulario.append('c_autonoma', clubComunidad);
-            formulario.append('city', clubZona);
-            formulario.append('logo', document.querySelector('#logo').files[0]);
-            formulario.append('web', clubWeb);
-            formulario.append('email', clubEmail,);
-            formulario.append('instagram', clubInstagram);
-            formulario.append('facebook', clubFacebook);
-
+            setUpData();
+            for (var pair of formulario.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            }
             setShowModal(true);
-            submitConfirmation ? submitData() : null;
         }
     }
-
-    function submitData(formulario) {
-        const request = new XMLHttpRequest();
-        request.open("POST", 'admin/clubs/post', true);
-        request.onload = (progress) => {
-            output.innerHTML =
-                request.status === 200
-                    ? "Uploaded!"
-                    : `Error ${request.status} occurred when trying to upload your file.<br />`;
-        };
-
-        request.send(formData);
+    
+    function submitData() {
+        fetch('/admin/clubs', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: formulario
+        })
+            .then(function (response) {
+                if (response.status == 201) {
+                    return response.json();
+                } else {
+                    console.log('Request failed: ' + response.body);
+                }
+            })
+            .then(function (data) {
+                // Handle the response data
+                console.log(data);
+                location.href('/admin/clubs');
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     }
 
     // un poco spaghettoncio, lo sé
     function validateData() {
-        if (!requiredString(clubName))
+        var allOkay = true;
+
+        if (!requiredString(clubName)) {
             document.querySelector('#name').classList.replace('border-zinc-300', 'border-red-600');
+            allOkay = false;
+        }
 
-        if (!requiredString(clubComunidad))
+        if (!requiredString(clubComunidad)) {
             document.querySelector('#c_autonoma').classList.replace('border-zinc-300', 'border-red-600');
+            allOkay = false;
+        }
 
-        if (!requiredString(clubZona))
+        if (!requiredString(clubZona)) {
             document.querySelector('#city').classList.replace('border-zinc-300', 'border-red-600');
+            allOkay = false;
+        }
 
-        if (document.querySelector('#logo').files[0] == null)
+        if (document.querySelector('#logo').files[0] == null) {
             document.querySelector('#logo-error').classList.remove('hidden');
+            allOkay = false;
+        }
 
-        if (clubWeb && !isValidHttpUrl(clubWeb))
+        if (clubWeb && !isValidHttpUrl(clubWeb)) {
             document.querySelector('#formato-web').classList.remove('hidden');
+            allOkay = false;
+        }
 
-        if (clubEmail && !validateEmail(clubEmail))
+        if (clubEmail && !validateEmail(clubEmail)) {
             document.querySelector('#formato-email').classList.remove('hidden');
+            allOkay = false;
+        }
 
-        if (clubWeb && !isValidHttpUrl(clubWeb))
+        if (clubWeb && !isValidHttpUrl(clubWeb)) {
             document.querySelector('#formato-web').classList.remove('hidden');
+            allOkay = false;
+        }
 
-        if (clubInstagram && !isValidHttpUrl(clubInstagram))
+        if (clubInstagram && !isValidHttpUrl(clubInstagram)) {
             document.querySelector('#formato-instagram').classList.remove('hidden');
+            allOkay = false;
+        }
 
-        if (clubFacebook && !isValidHttpUrl(clubFacebook))
+        if (clubFacebook && !isValidHttpUrl(clubFacebook)) {
             document.querySelector('#formato-facebook').classList.remove('hidden');
+            allOkay = false;
+        }
+
+        return allOkay;
     }
 
     function requiredString(string) {
@@ -157,9 +197,7 @@ export default function CreateClub({ auth }) {
                             </div>
                             <div className="flex flex-col basis-1/4 mb-3">
                                 <label className="text-zinc-700 font-bold mb-3" htmlFor="logo">Logo</label>
-                                <input id="logo" className="rounded border-zinc-300 w-60 h-9" type="file" accept="image/png, image/jpg, image/jpeg" name="logo" required onChange={(e) => {
-                                    setClubLogo(e.target.value);
-                                }} />
+                                <input id="logo" className="rounded border-zinc-300 w-60 h-9" type="file" accept="image/png, image/jpg, image/jpeg" name="logo" />
                                 <p id="logo-error" className="text-start text-sm text-red-600 hidden">Campo obligatorio.</p>
                             </div>
                         </div>

@@ -9,13 +9,14 @@ import { Head } from "@inertiajs/react";
  * 
  */
 export default function StandardSearch( { auth, exercises }) {
+    console.log(auth)
     return (
         <Authenticated
             user={ auth.user }
         >
         <Head title="Búsqueda" />
         <SearchHeader title="Ejercicios estándar"/>
-        <StandardHolder exercises={exercises} />
+        <StandardHolder exercises={exercises} user={auth.user} />
         </Authenticated>
     );
 }

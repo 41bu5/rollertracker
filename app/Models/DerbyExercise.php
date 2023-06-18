@@ -12,7 +12,6 @@ class DerbyExercise extends Model
     protected $fillable = [
         'name',
         'description',
-        'image',
         'category',
         'difficulty',
     ];

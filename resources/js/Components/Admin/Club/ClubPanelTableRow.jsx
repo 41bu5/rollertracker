@@ -1,4 +1,4 @@
-export default function ClubPanelTableRow({ club }) {
+export default function ClubPanelTableRow({ club, setLogoModal, setShowModalLogo, setShowModalEdit, setClubEdit, setDeleteId, setShowModalDelete }) {
     console.log(club);
     return (
         <tr>
@@ -45,12 +45,21 @@ export default function ClubPanelTableRow({ club }) {
             }
             </td>
             <td>
-                <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" type="button">Ver</button>
+                <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" type="button" onClick={() => {
+                    setLogoModal(club.logo);
+                    setShowModalLogo(true);
+                }}>Ver</button>
             </td>
             <td>
                 <div className="inline-flex">
-                <button className="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded" type="button">Editar</button>
-                <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" type="button">Eliminar</button>
+                <button className="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded" type="button" onClick={() => {
+                    setClubEdit(club);
+                    setShowModalEdit(true);
+                }}>Editar</button>
+                <button className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" type="button" onClick={() => {
+                    setDeleteId(club.id);
+                    setShowModalDelete(true);
+                }}>Eliminar</button>
                 </div>
             </td>
         </tr>

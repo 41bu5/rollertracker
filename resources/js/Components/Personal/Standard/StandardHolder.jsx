@@ -4,12 +4,39 @@ import Modal from "@/Components/Modal";
 import StandardModal from "@/Components/Personal/Standard/StandardModal";
 import { useState, useEffect } from "react";
 
-export default function StandardHolder( { exercises } ) {
+export default function StandardHolder({ exercises, user }) {
     const [filtroKeyword, setFiltroKeyword] = useState('');
     const [filtroZonaEscogida, setFiltroZonaEscogida] = useState('all');
     const [filtroDificultad, setFiltroDificultad] = useState('all');
     const [showModal, setShowModal] = useState(false);
-    const [ejercicioModal, setEjercicioModal] = useState(null);
+    const [ejercicioModal, setEjercicioModal] = useState(exercises[0]);
+    const [rutinasEjercicioModal, setRutinasEjercicioModal] = useState(null);
+
+    console.log(exercises[0]);
+    console.log(user);
+    useEffect(() => {
+        fetch(`http://rollertracker.test/api/routine-titles/${ejercicioModal.id}/${user.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Request failed with status: ' + response.status);
+                }
+            })
+            .then(function (data) {
+                console.log(data);
+                setRutinasEjercicioModal(data);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    }, [ejercicioModal]);
 
     /**
      * Pruebas que hice.
@@ -17,11 +44,11 @@ export default function StandardHolder( { exercises } ) {
     // useEffect(() => {
     //     console.log('Cambio de keyword a ' + filtroKeyword);
     // }, [filtroKeyword]);
-    
+
     // useEffect(() => {
     //     console.log('Cambio de zona a ' + filtroZonaEscogida);
     // }, [filtroZonaEscogida]);
-    
+
     // useEffect(() => {
     //     console.log('Cambio de dificultad a ' + filtroDificultad);
     // }, [filtroDificultad]);
@@ -40,8 +67,10 @@ export default function StandardHolder( { exercises } ) {
                 setShowModal={setShowModal}
                 setEjercicioModal={setEjercicioModal}
             />
-            <Modal show={showModal} onClose={() => setShowModal(false)}>
-                <StandardModal ejercicioModal={ejercicioModal} />
+            <Modal show={showModal}>
+                <StandardModal exercise={ejercicioModal}
+                    setShowModal={setShowModal}
+                    rutinasEjercicioModal={rutinasEjercicioModal} />
             </Modal>
         </>
     );

@@ -25,7 +25,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
 
-            $table->integer('how_much');
+            $table->string('how_much');
         });
     }
 

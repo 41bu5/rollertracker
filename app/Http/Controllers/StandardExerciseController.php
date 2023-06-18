@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\StandardExercise;
 use Exception;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\DB;
 class StandardExerciseController extends Controller
 {
     /**
@@ -21,10 +21,29 @@ class StandardExerciseController extends Controller
         ]);
     }
 
+    function showRoutines($id, $userId)
+    {
+        try {
+            $routinesTitles = [];
+            $relationRows = DB::table('standard_exercise_routine')->where('standard_exercise_id', $id)->get();
+            foreach ($relationRows as $routineInRelationship) {
+                $routineData = DB::table('routines')
+                ->where('id', $routineInRelationship->routine_id)
+                ->where('user_id', $userId)
+                ->get();
+                array_push($routinesTitles, $routineData->title);
+            }
+            return json_encode($routinesTitles);
+        } catch (Exception $e) {
+            return "No se han podido recuperar las rutinas que contienen dicho ejercicio: " . $e->getMessage();
+        }
+    }
+
     /**
      * Display a listing of the resource in the administrator view.
      */
-    public function indexAdmin() {
+    public function indexAdmin()
+    {
         $exercises = StandardExercise::all();
         return Inertia::render('Admin/Standard/StandardPanel', [
             'exercises' => $exercises,
@@ -32,12 +51,20 @@ class StandardExerciseController extends Controller
     }
 
     /**
+     * Display a listing of the resource in JSON format.
+     */
+    public function indexApi()
+    {
+        $exercises = StandardExercise::all();
+        return str_replace('\/', '/', str_replace('\/\/', '//', $exercises));
+    }
+
+    /**
      * Return the view for creating a new resource.
      */
     public function create()
     {
-        //Aquí hace el return de la vista de creación
-        // Inertia::render('DerbyExercise/CreateDerbyExercise');
+        return Inertia::render('Admin/Standard/CreateStandard');
     }
 
     /**
@@ -74,16 +101,17 @@ class StandardExerciseController extends Controller
         }
     }
 
-
     /**
-    * Show the form for editing the specified resource.
-    */
-    public function edit(StandardExercise $exercise)
+     * Display the specified resource in JSON format.
+     */
+    public function showApi($id)
     {
-        //Aquí hace el return de la vista de edición
-        // Inertia::render('StandardExercise/EditStandardExercise', [
-        //     'exercise' => $exercise,
-        // ]);
+        try {
+            $exercise = StandardExercise::findOrFail($id);
+            return str_replace('\/', '/', str_replace('\/\/', '//', $exercise));
+        } catch (Exception $e) {
+            return "No se ha podido encontrar el ejercicio estándar: " . $e->getMessage();
+        }
     }
 
     /**
@@ -101,12 +129,12 @@ class StandardExerciseController extends Controller
             $exercise->difficulty = $request->difficulty;
             $exercise->save();
 
-            return "Ejercicio estándar actualizado con éxito: ". $exercise;
+            return "Ejercicio estándar actualizado con éxito: " . $exercise;
         } catch (Exception $e) {
             return "No se pudo editar el ejercicio estándar:" . $e->getMessage();
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */

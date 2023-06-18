@@ -1,4 +1,4 @@
-export default function ConfirmationModal( {setShowModal, setSubmitConfirmation }) {
+export default function ConfirmationModal( { setShowModal, setSubmitConfirmation }) {
     return (
         <div className="p-16 text-center">
             <p className="text-xl font-bold mb-5">¿Estás seguro?</p>

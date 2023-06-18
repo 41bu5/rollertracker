@@ -22,10 +22,20 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the resource for the administrator view.
+     */
+    public function indexAdmin()
+    {
+        $users = User::all();
+        return Inertia::render('Admin/User/UserPanel',[
+            'users' => $users,
+        ]);
+    }
+
     public function create()
     {
-        //Aquí hace el return de la vista de creación
-        // Inertia::render('User/CreateUser');
+        return Inertia::render('Admin/User/CreateUser');
     }
 
     /**
@@ -33,7 +43,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-    
         $controller = new RegisteredUserController();
         $controller->store($request);
     }
@@ -49,17 +58,6 @@ class UserController extends Controller
         } catch (Exception $e) {
             return "No se ha podido encontrar el usuario: " . $e->getMessage();
         }
-    }
-
-     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //Aquí hace el return de la vista de edición
-        // Inertia::render('User/EditUser', [
-        //     'user' => $user,
-        // ]);
     }
 
     /**

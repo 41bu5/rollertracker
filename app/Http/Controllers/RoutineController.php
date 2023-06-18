@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Routine;
+use App\Models\StandardExercise;
 use Exception;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use PhpParser\PrettyPrinter\Standard;
 
 class RoutineController extends Controller
 {
@@ -38,8 +40,10 @@ class RoutineController extends Controller
      */
     public function create()
     {
-        //Aquí hace el return de la vista de creación
-        // Inertia::render('Routine/CreateRoutine');
+        $exercises = StandardExercise::all();
+        return Inertia::render('Personal/Standard/Routine/CreateRoutine', [
+            'exercises' => $exercises,
+        ]);
     }
 
     /**

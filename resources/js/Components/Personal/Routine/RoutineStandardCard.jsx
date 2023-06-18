@@ -1,4 +1,5 @@
 export default function RoutineStandardCard({ exercise, repeticiones, setEjercicioModal, setShowModal, orden }) {
+    console.log(exercise)
     return (
         <div className="flex p-2">
             <div className="basis-3/4 flex bg-zinc-50">

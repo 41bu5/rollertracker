@@ -31,14 +31,22 @@ class DerbyExerciseController extends Controller
             'exercises' => $exercises,
         ]);
     }
+    
+    /**
+     * Display a listing of the resource in JSON format.
+     */
+    public function indexApi()
+    {
+        $exercises = DerbyExercise::all();
+        return str_replace('\/', '/', str_replace('\/\/', '//', $exercises));
+    }
 
     /**
      * Return the view for creating a new resource.
      */
     public function create()
     {
-        //Aquí hace el return de la vista de creación
-        // Inertia::render('DerbyExercise/CreateDerbyExercise');
+        return Inertia::render('Admin/Derby/CreateDerby');
     }
 
     /**
@@ -50,8 +58,6 @@ class DerbyExerciseController extends Controller
             $exercise = new DerbyExercise();
             $exercise->name = $request->name;
             $exercise->description = $request->description;
-            $exercise->image = $request->image;
-            //Aquí habría que modificar la imagen
             $exercise->category = $request->category;
             $exercise->difficulty = $request->difficulty;
             $exercise->save();
@@ -74,17 +80,18 @@ class DerbyExerciseController extends Controller
             return "No se ha podido encontrar el ejercicio derby: " . $e->getMessage();
         }
     }
-
-
+    
     /**
-    * Show the form for editing the specified resource.
-    */
-    public function edit(DerbyExercise $exercise)
+     * Display the specified resource in JSON format.
+     */
+    public function showApi($id)
     {
-        //Aquí hace el return de la vista de edición
-        // Inertia::render('DErbyExercise/EditDerbyExercise', [
-        //     'exercise' => $exercise,
-        // ]);
+        try {
+            $exercise = DerbyExercise::findOrFail($id);
+            return str_replace('\/', '/', str_replace('\/\/', '//', $exercise));
+        } catch (Exception $e) {
+            return "No se ha podido encontrar el ejercicio derby: " . $e->getMessage();
+        }
     }
 
     /**
@@ -96,8 +103,6 @@ class DerbyExerciseController extends Controller
             $exercise = DerbyExercise::findOrFail($request->id);
             $exercise->name = $request->name;
             $exercise->description = $request->description;
-            $exercise->image = $request->image;
-            //Aquí habría que modificar la imagen
             $exercise->category = $request->category;
             $exercise->difficulty = $request->difficulty;
             $exercise->save();

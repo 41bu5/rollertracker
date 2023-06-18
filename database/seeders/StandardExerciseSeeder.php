@@ -17,7 +17,7 @@ class StandardExerciseSeeder extends Seeder
         StandardExercise::create([
             'name' => 'Ejercicio 1',
             'description' => 'Ejercicio',
-            'image' => null,
+            'image' => 'https://picsum.photos/200/300',
             'category' => 'Pierna',
             'difficulty' => 'Principiante',
         ]);

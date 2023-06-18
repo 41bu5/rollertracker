@@ -19,7 +19,6 @@ class DerbyExerciseFactory extends Factory
         return [
             'name' => 'Ejercicio derby',
             'description' => fake()->text(),
-            'image' => 'https://picsum.photos/200/300',
             'category' => 'Individual',
             'difficulty' => 'Intermedio',
         ];
