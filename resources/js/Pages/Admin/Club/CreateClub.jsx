@@ -16,6 +16,7 @@ export default function CreateClub({ auth }) {
     const [showModal, setShowModal] = useState(false);
     const [submitConfirmation, setSubmitConfirmation] = useState(false);
     const formulario = new FormData();
+    var jsonData = {};
 
     useEffect(() => {
         submitConfirmation ? submitData() : console.log('No mandado');
@@ -25,11 +26,14 @@ export default function CreateClub({ auth }) {
         formulario.set('name', clubName);
         formulario.set('c_autonoma', clubComunidad);
         formulario.set('zona', clubZona);
-        formulario.set('logo', document.querySelector('#logo').files[0]);
         formulario.set('web', clubWeb);
         formulario.set('email', clubEmail);
         formulario.set('instagram', clubInstagram);
         formulario.set('facebook', clubFacebook);
+
+        for (let [key, value] of formulario.entries()) {
+            jsonData[key] = value;
+        }
     }
 
     function submitForm() {
@@ -49,8 +53,9 @@ export default function CreateClub({ auth }) {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type' : 'application/json'
             },
-            body: formulario
+            body: jsonData
         })
             .then(function (response) {
                 if (response.status == 201) {
@@ -62,7 +67,6 @@ export default function CreateClub({ auth }) {
             .then(function (data) {
                 // Handle the response data
                 console.log(data);
-                location.href('/admin/clubs');
             })
             .catch(function (error) {
                 console.error(error);

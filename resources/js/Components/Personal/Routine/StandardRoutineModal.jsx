@@ -1,7 +1,5 @@
 import { Link } from "@inertiajs/react";
-export default function StandardModal({ exercise, setShowModal, rutinasEjercicioModal }) {
-
-
+export default function StandardModal({ exercise, setShowModal }) {
     return (
         <div className="bg-zinc-50 w-full h-full text-center p-5">
             <div className="flex justify-around items-center">
@@ -18,16 +16,6 @@ export default function StandardModal({ exercise, setShowModal, rutinasEjercicio
                     <img src={exercise.image} className="w-full h-auto" alt="" />
                 </div>
             </div>
-            <p className="text-2xl text-start mt-2">Rutinas que lo contienen:</p>
-            <ul className="text-start">
-            {
-                rutinasEjercicioModal.map(
-                    (rutina, index) => {
-                        return <li key={index}>{rutina[0].title}<Link className="underlined text-gray-700" href={'/espacio-personal/standard/rutinas/'+rutina[0].id}>{'[ Ver >> ]'}</Link></li>
-                    }
-                )
-            }
-            </ul>
         </div>
     )
 }

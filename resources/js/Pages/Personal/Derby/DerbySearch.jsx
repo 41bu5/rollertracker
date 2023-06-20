@@ -1,11 +1,22 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import SearchHeader from "@/Components/Personal/SearchHeader/SearchHeader";
+import DerbyHolder from "@/Components/Personal/Derby/DerbyHolder";
+import { Head } from "@inertiajs/react";
 
-export default function DerbySearch({ auth }) {
+/**
+ * 
+ * Página de búsqueda y gestión de ejercicios derby.
+ * 
+ */
+export default function DerbySearch( { auth, exercises }) {
+    console.log(auth)
     return (
         <Authenticated
-            user={auth.user}
+            user={ auth.user }
         >
-            <p>Derby</p>
+        <Head title="Búsqueda" />
+        <SearchHeader title="Ejercicios derby"/>
+        <DerbyHolder exercises={exercises} user={auth.user} />
         </Authenticated>
     );
 }

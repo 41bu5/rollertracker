@@ -9,6 +9,7 @@ export default function CreateRoutine({ auth, exercises }) {
     const [description, setDescription] = useState(null);
     const [submitConfirmation, setSubmitConfirmation] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    var formulario = new FormData();
 
 
     function setUpData() {
@@ -33,6 +34,28 @@ export default function CreateRoutine({ auth, exercises }) {
         }
     }
 
+    function insertarRelaciones() {
+        tomarDatosCheckbox();
+    }
+
+    // function tomarDatosCheckbox() {
+    //     let checkboxGroup = document.querySelectorAll('input[type=checkbox]');
+    //     let arr = [];
+    //     checkboxGroup.forEach(
+    //         element => {
+    //             if (checkedWithNumber(element)) {
+    //                 arr.push(
+    //                     {
+    //                         "routine_id" : 
+    //                         "standard_exercise_id" : element.id.slice(-1),
+    //                         "repeticiones" : document.querySelector('#reps'+element.id.slice(-1)).value,
+    //                     }
+    //                 );
+    //             }
+    //         }
+    //     )
+    // }
+
     function submitData() {
         fetch('/espacio-personal/standard/rutinas', {
             method: 'POST',
@@ -43,20 +66,38 @@ export default function CreateRoutine({ auth, exercises }) {
         })
             .then(function (response) {
                 if (response.status == 201) {
-                    return response.json();
+                    console.log(response.json());
+                    // insertarRelaciones();
                 } else {
-                    console.log('Request failed: ' + response.body);
+                    readStream(response.body);
                 }
             })
             .then(function (data) {
                 // Handle the response data
                 console.log(data);
-                location.href('/admin/standard');
             })
             .catch(function (error) {
                 console.error(error);
             });
     }
+
+    async function readStream(stream) {
+        const reader = stream.getReader();
+        let result = "";
+      
+        while (true) {
+          const { done, value } = await reader.read();
+      
+          if (done) {
+            break;
+          }
+      
+          // Assuming the stream contains text data
+          result += value;
+        }
+      
+        console.log(result);
+      }      
 
     // un poco spaghettoncio, lo sé
     function validateData() {
@@ -72,9 +113,14 @@ export default function CreateRoutine({ auth, exercises }) {
             allOkay = false;
         }
 
-        var checkboxGroup = document.querySelectorAll('input[type=checkbox]');
-        if(!oneChecked(checkboxGroup) || checkedWithNumber(checkboxGroup)) {
-            document.querySelector('#aviso-checkbox').classList.remove('hidden');
+        let checkboxGroup = document.querySelectorAll('input[type=checkbox]');
+        if(!oneChecked(checkboxGroup)) {
+            document.querySelector('#aviso-marcar').classList.remove('hidden');
+            allOkay = false;
+        }
+
+        if(!checkedWithNumber(checkboxGroup)) {
+            document.querySelector('#aviso-reps').classList.remove('hidden');
             allOkay = false;
         }
 
@@ -84,7 +130,10 @@ export default function CreateRoutine({ auth, exercises }) {
     function oneChecked(checkboxGroup) {
         let checked = false;
         checkboxGroup.forEach(
-            (element) => {checked = element.checked ? true : null}
+            (element) => {
+                if (element.checked)
+                checked = true;
+            }
         );
         return checked;
     }
@@ -96,11 +145,12 @@ export default function CreateRoutine({ auth, exercises }) {
                     return false;
             }
         )
+        return true;
     }
 
     function checkReps(element) {
         var repsId = '#reps' + element.id.slice(-1);
-        if (document.querySelector(repsId) == 0 || !document.querySelector(repsId))
+        if (document.querySelector(repsId).value == 0 || document.querySelector(repsId).value == '' || document.querySelector(repsId).value == null)
             return false;
 
         return true;
@@ -120,7 +170,8 @@ export default function CreateRoutine({ auth, exercises }) {
                 input.classList.contains('border-red-600') ? input.classList.replace('border-red-600', 'border-zinc-300') : null;
             }
         );
-        document.querySelector('#aviso-checkbox').classList.add('hidden');
+        document.querySelector('#aviso-marcar').classList.add('hidden');
+        document.querySelector('#aviso-reps').classList.add('hidden');
     }
 
     return (
@@ -129,7 +180,8 @@ export default function CreateRoutine({ auth, exercises }) {
             <div className="text-center">
                 <h1 className="text-5xl text-zinc-900 p-10">Crear rutina</h1>
                 <Link href="/admin/standard" className="bg-transparent hover:bg-violet-500 text-violet-700 font-semibold hover:text-white py-2 px-4 border border-violet-500 hover:border-transparent rounded text-2xl">{'<< Volver al panel'}</Link>
-                <p id="aviso-checkbox" className="mt-5 text-red-400 hidden">Debe añadirse al menos un ejercicio y añadir las repeticiones de los ejercicios marcados.</p>
+                <p id="aviso-marcar" className="mt-5 text-red-400 hidden">Debe añadirse al menos un ejercicio.</p>
+                <p id="aviso-reps" className="mt-5 text-red-400 hidden">Los ejercicios añadidos deben tener una repetición mínimo.</p>
 
                 <div className="flex w-38 h-auto p-10 pt-3 pb-0 items-center justify-center">
                     <div className="flex flex-col justify-center items-end basis-1/2 p-5">
@@ -157,7 +209,7 @@ export default function CreateRoutine({ auth, exercises }) {
                                                 <input type="checkbox" className="rounded border-zinc-300 mr-2" id={'check'+exercise.id} />
                                                 <label className="mr-3">{exercise.name}</label>
                                                 ×
-                                                <input type="number" id={'reps'+exercise.id} className="rounded border-zinc-300 ml-3" min="0" max="99" />
+                                                <input type="number" id={'reps'+exercise.id} className="rounded border-zinc-300 ml-3" min="1" max="99" />
                                             </div>
                                         </div>
                                     )

@@ -24,16 +24,16 @@ class StandardExerciseController extends Controller
     function showRoutines($id, $userId)
     {
         try {
-            $routinesTitles = [];
+            $routines = [];
             $relationRows = DB::table('standard_exercise_routine')->where('standard_exercise_id', $id)->get();
             foreach ($relationRows as $routineInRelationship) {
                 $routineData = DB::table('routines')
                 ->where('id', $routineInRelationship->routine_id)
                 ->where('user_id', $userId)
                 ->get();
-                array_push($routinesTitles, $routineData->title);
+                array_push($routines, $routineData);
             }
-            return json_encode($routinesTitles);
+            return json_encode($routines);
         } catch (Exception $e) {
             return "No se han podido recuperar las rutinas que contienen dicho ejercicio: " . $e->getMessage();
         }

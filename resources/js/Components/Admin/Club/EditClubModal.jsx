@@ -9,7 +9,7 @@ export default function EditClubModal({ club, setShowModalEdit }) {
     const [clubEmail, setClubEmail] = useState(club.email);
     const [clubInstagram, setClubInstagram] = useState(club.instagram);
     const [clubFacebook, setClubFacebook] = useState(club.facebook);
-    const formulario = new FormData();
+    var formulario = new FormData();
 
     function setUpData() {
         formulario.set('id', club.id);
@@ -20,7 +20,7 @@ export default function EditClubModal({ club, setShowModalEdit }) {
         formulario.set('web', clubWeb);
         formulario.set('email', clubEmail,);
         formulario.set('instagram', clubInstagram);
-        formulario.set('facebook', clubFacebook);
+        formulario.set('facebook', clubFacebook);  
     }
 
     function submitForm() {
@@ -40,6 +40,7 @@ export default function EditClubModal({ club, setShowModalEdit }) {
           method: 'PATCH',
           headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Content-Type' : 'multipart/form-data',
           },
           body: formulario
         })
@@ -148,7 +149,7 @@ export default function EditClubModal({ club, setShowModalEdit }) {
             <button type="button" className="bg-transparent hover:bg-violet-500 text-violet-700 font-semibold hover:text-white py-2 px-4 border border-violet-500 hover:border-transparent rounded m-4" onClick={() => {
                 setShowModalEdit(false);
             }}>Cerrar</button>
-            <form className="flex flex-col pl-20 pr-20 justify-center items-center">
+            <form encType="multipart/form-data" className="flex flex-col pl-20 pr-20 justify-center items-center">
                 <div className="mb-3 flex items-center">
                     <label className="text-zinc-700 basis-1/4 font-bold mr-3" htmlFor="name">Nombre</label>
                     <input id="name" value={clubName} className="basis-3/4 rounded border-zinc-300 w-60 h-9" type="text" name="name" required onChange={(e) => {

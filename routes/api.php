@@ -27,6 +27,3 @@ Route::get('/exercises/standard', [StandardExerciseController::class, 'indexApi'
 Route::get('/exercises/standard/{id}', [StandardExerciseController::class, 'showApi']);
 Route::get('/exercises/derby', [DerbyExerciseController::class, 'indexApi']);
 Route::get('/exercises/derby/{id}', [DerbyExerciseController::class, 'showApi']);
-Route::get('/routine-titles/{id}/{userId}', [StandardExerciseController::class, 'showRoutines'])
-    ->name('standard.routines')
-    ->middleware('auth');

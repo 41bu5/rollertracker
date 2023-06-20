@@ -9,7 +9,6 @@ use App\Models\StandardExercise;
 use Exception;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
-use PhpParser\PrettyPrinter\Standard;
 
 class RoutineController extends Controller
 {
@@ -52,19 +51,26 @@ class RoutineController extends Controller
     public function store(Request $request)
     {
         try {
-            $routine = new Routine();
-            $routine->user_id = $request->user_id;
-            $routine->title = $request->title;
-            $routine->description = $request->description;
-            $routine->created_at = now();
-            $routine->modified_at = null;
-            $routine->save();
+            // $routine = new Routine();
+            // $routine->user_id = $request->user_id;
+            // $routine->title = $request->title;
+            // $routine->description = $request->description;
+            // $routine->created_at = now();
+            // $routine->modified_at = null;
+            // $routine->save();
 
-            return "Rutina creada con éxito: " . $routine;
+            return response()->json($request);
         } catch (Exception $e) {
-            return "No se ha podido crear la rutina: " . $e->getMessage();
+            return response()->json("No se ha podido crear la rutina: " . $e->getMessage());
         }
     }
+
+    // /**
+    //  * Store relations between routines and exercises.
+    //  */
+    // public function storeExercises(Request $request) {
+
+    // }
 
     /**
      * Display the specified resource.

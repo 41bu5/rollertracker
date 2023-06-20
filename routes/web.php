@@ -64,6 +64,7 @@ Route::get('/espacio-personal/standard', function () {
 //Búsqueda de ejercicios estándar
 Route::middleware('auth')->group(function () {
     Route::get('/espacio-personal/standard/busqueda', [StandardExerciseController::class, 'index'])->name('standard.index');
+    Route::get('/espacio-personal/standard/busqueda/routine-titles/{id}/{userId}', [StandardExerciseController::class, 'showRoutines'])->name('standard.routines');
 });
 
 //Vistas de rutinas
@@ -72,10 +73,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/espacio-personal/standard/rutinas', [RoutineController::class, 'indexUser'])->name('routines.index');
     //Vista creación de rutina
     Route::get('/espacio-personal/standard/rutinas/create', [RoutineController::class, 'create'])->name('routines.create');
-    //Visualización de una rutina en concreto y sus ejercicios
-    Route::get('/espacio-personal/standard/rutinas/{id}', [RoutineController::class, 'show'])->name('routines.show');
     //Creación de rutina en la BBDD
     Route::post('/espacio-personal/standard/rutinas', [RoutineController::class, 'store'])->name('routines.store');
+    //Visualización de una rutina en concreto y sus ejercicios
+    Route::get('/espacio-personal/standard/rutinas/{id}', [RoutineController::class, 'show'])->name('routines.show');
 });
 
 Route::middleware('auth')->group(function () {
@@ -96,8 +97,8 @@ Route::get('/admin', function () {
 Route::middleware('admin')->group(function () {
     Route::get('/admin/clubs', [ClubController::class, 'indexAdmin'])->name('admin.clubs');
     Route::get('/admin/clubs/create', [ClubController::class, 'create'])->name('admin.clubs.create');
-    Route::post('/admin/clubs', [ClubController::class, 'store'])->name('admin.clubs.store');
     Route::patch('/admin/clubs', [ClubController::class, 'update'])->name('admin.clubs.update');
+    Route::post('/admin/clubs', [ClubController::class, 'store'])->name('admin.clubs.store');
     Route::delete('/admin/clubs/{id}', [ClubController::class, 'destroy'])->name('admin.clubs.delete');
 });
 

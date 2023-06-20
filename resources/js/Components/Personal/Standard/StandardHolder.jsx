@@ -2,7 +2,7 @@ import StandardFilters from "@/Components/Personal/Standard/StandardFilters";
 import StandardCardGroup from "@/Components/Personal/Standard/StandardCardGroup";
 import Modal from "@/Components/Modal";
 import StandardModal from "@/Components/Personal/Standard/StandardModal";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 
 export default function StandardHolder({ exercises, user }) {
     const [filtroKeyword, setFiltroKeyword] = useState('');
@@ -14,8 +14,8 @@ export default function StandardHolder({ exercises, user }) {
 
     console.log(exercises[0]);
     console.log(user);
-    useEffect(() => {
-        fetch(`http://rollertracker.test/api/routine-titles/${ejercicioModal.id}/${user.id}`, {
+    useMemo(() => {
+        fetch(`/espacio-personal/standard/busqueda/routine-titles/${ejercicioModal.id}/${user.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

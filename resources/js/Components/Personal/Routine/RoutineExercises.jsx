@@ -1,6 +1,6 @@
 import Modal from "@/Components/Modal";
 import RoutineStandardCard from "@/Components/Personal/Routine/RoutineStandardCard";
-import StandardModal from "@/Components/Personal/Standard/StandardModal";
+import StandardRoutineModal from "@/Components/Personal/Routine/StandardRoutineModal";
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
 
@@ -24,7 +24,7 @@ export default function RoutineExercises({ routineExercises }) {
                 }
             </div>
             <Modal show={showModal} onClose={() => setShowModal(false)}>
-                <StandardModal ejercicioModal={ejercicioModal} />
+                <StandardRoutineModal exercise={ejercicioModal} setShowModal={setShowModal} />
             </Modal>
         </div>
     );

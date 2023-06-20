@@ -43,6 +43,7 @@ export default function CreateStandard({ auth }) {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type' : 'application/x-www-form-urlencoded',
             },
             body: formulario
         })
@@ -56,7 +57,7 @@ export default function CreateStandard({ auth }) {
             .then(function (data) {
                 // Handle the response data
                 console.log(data);
-                location.href('/admin/derby');
+                // location.href('/admin/derby');ç
             })
             .catch(function (error) {
                 console.error(error);
@@ -113,7 +114,7 @@ export default function CreateStandard({ auth }) {
                 <h1 className="text-5xl text-zinc-900 p-10">Añadir un ejercicio</h1>
                 <Link href="/admin/standard" className="bg-transparent hover:bg-violet-500 text-violet-700 font-semibold hover:text-white py-2 px-4 border border-violet-500 hover:border-transparent rounded text-2xl">{'<< Volver al panel'}</Link>
 
-                <form encType="multipart/form-data">
+                <form>
                     <div className="flex flex-col w-screen h-auto p-10 pb-0 items-center justify-center">
                         <div className="flex flex-col mb-3">
                             <label className="text-zinc-700 font-bold mb-3" htmlFor="name">Nombre</label>

@@ -26,7 +26,8 @@ class ClubController extends Controller
     /**
      * Display a listing of the resource for the administrator view.
      */
-    public function indexAdmin() {
+    public function indexAdmin()
+    {
         $clubs = Club::all();
         return Inertia::render('Admin/Club/ClubPanel', [
             'clubs' => $clubs,
@@ -36,7 +37,8 @@ class ClubController extends Controller
     /**
      * Display a listing of the resource in a string response.
      */
-    public function indexApi() {
+    public function indexApi()
+    {
         $clubs = Club::all();
         return mb_convert_encoding(str_replace('\/', '/', str_replace('\/\/', '//', $clubs)), "UTF-8");
     }
@@ -56,17 +58,17 @@ class ClubController extends Controller
     {
         try {
             $club = new Club();
-            $club->name = $request->input('name');
-            $club->c_autonoma = $request->input('c_autonoma');
-            $club->zona = $request->input('zona');
+            $club->name = $request->name;
+            $club->c_autonoma = $request->c_autonoma;
+            $club->zona = $request->zona;
             // $logoName = time().'.'.$request->file('logo')->extension();
             // $request->file('logo')->move(storage_path('app/public/images/club_logos'), $logoName);
             // $club->logo = URL::to('/') . '/club-logos/' . $logoName;
-            $club->logo = 'holi';
-            $club->web = $request->input('web') ? $request->input('web') : null;
-            $club->email = $request->input('email') ? $request->input('email') : null;
-            $club->instagram = $request->input('instagram') ? $request->input('instagram') : null;
-            $club->facebook = $request->input('facebook') ? $request->input('instagram') : null;
+            $club->logo = 'null';
+            $club->web = $request->web;
+            $club->email = $request->email;
+            $club->instagram = $request->instagram;
+            $club->facebook = $request->facebook;
             $club->save();
 
             return 'Club creado con éxito ' . $club;
@@ -91,7 +93,8 @@ class ClubController extends Controller
     /**
      * Display the specified resource in JSON format.
      */
-    public function showApi($id) {
+    public function showApi($id)
+    {
         try {
             $club = Club::findOrFail($id);
             return mb_convert_encoding(str_replace('\/', '/', str_replace('\/\/', '//', $club)), "UTF-8");
@@ -106,7 +109,7 @@ class ClubController extends Controller
     public function update(Request $request)
     {
         try {
-            $club = Club::findOrFail($request->id);
+            $club = Club::findOrFail($request->input('id'));
             $club->name = $request->name;
             $club->c_autonoma = $request->c_autonoma;
             $club->zona = $request->zona;
@@ -119,18 +122,19 @@ class ClubController extends Controller
             $club->facebook = $request->facebook;
             $club->save();
 
-            return "Club actualizado con éxito: ". $club;
+            return response()->json($request->getContent());
         } catch (Exception $e) {
-            return "No se pudo editar el club:" . $e->getMessage();
+            return response()->json("No se pudo editar el club:" . $e->getMessage());
         }
     }
 
-    public function updateLogo($logoData) {
-        $logoName = time().'.'.$logoData->extension();
+    public function updateLogo($logoData)
+    {
+        $logoName = time() . '.' . $logoData->extension();
         $logoData->move(public_path('club-logos'), $logoName);
-        return URL::to('/').$logoName;
+        return URL::to('/') . $logoName;
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */

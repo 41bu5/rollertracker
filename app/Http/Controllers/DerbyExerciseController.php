@@ -56,13 +56,13 @@ class DerbyExerciseController extends Controller
     {
         try {
             $exercise = new DerbyExercise();
-            $exercise->name = $request->name;
-            $exercise->description = $request->description;
-            $exercise->category = $request->category;
-            $exercise->difficulty = $request->difficulty;
+            $exercise->name = $request->input('name');
+            $exercise->description = $request->input('description');
+            $exercise->category = $request->input('category');
+            $exercise->difficulty = $request->input('difficulty');
             $exercise->save();
 
-            return "Ejercicio derby creado con éxito: " . $exercise;
+            return response()->json($request->getContent());
         } catch (Exception $e) {
             return "No se ha podido crear el ejercicio derby: " . $e->getMessage();
         }
